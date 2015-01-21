@@ -1,4 +1,4 @@
-# Copyright (C) 2012 The Android Open Source Project
+# Copyright (C) 2015 The Android One Source Project
 #
 # IMPORTANT: Do not create world writable files or directories.
 # This is a common source of Android security bugs.
@@ -9,8 +9,8 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.${ro.zygote}.rc
 import /init.trace.rc
-# Include CM's extra init file
-import /init.cm.rc
+# Include Android One extra init file
+import /init.one.rc
 
 
 on early-init
@@ -605,16 +605,6 @@ service bootanim /system/bin/bootanimation
 service installd /system/bin/installd
     class main
     socket installd stream 600 system system
-
-service flash_recovery /system/etc/install-cm-recovery.sh
-    class main
-    seclabel u:r:install_recovery:s0
-    oneshot
-    disabled
-
-# update recovery if enabled
-on property:persist.sys.recovery_update=true
-    start flash_recovery
 
 service racoon /system/bin/racoon
     class main
